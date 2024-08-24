@@ -8,6 +8,20 @@ resource "google_cloud_tasks_queue" "<%= ctx[:primary_resource_id] %>" {
     instance = "test"
   }
 
+  uri_override {
+    path_override {
+      path = "/users/1234"
+    }
+    query_override {
+      query_params = "qparam1=123&qparam2=456"
+    }
+    uri_override_enforce_mode = "IF_NOT_EXISTS"
+
+    scheme = "HTTPS"
+    host   = "example.com"
+    port   = 8080
+  }
+
   rate_limits {
     max_concurrent_dispatches = 3
     max_dispatches_per_second = 2
